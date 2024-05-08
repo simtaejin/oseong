@@ -43,4 +43,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function mydisks()
+    {
+        return $this->hasManyThrough(gaoledisk::class,mydisk::class,'user_id','id','id','gaoledisk_id');
+    }
 }

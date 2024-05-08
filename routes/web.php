@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialAuthController;
+use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('custom_auth');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->name('dashboard')->middleware('custom_auth');
+
+Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::get('/logout', function () {
     auth()->logout();

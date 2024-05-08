@@ -17,4 +17,14 @@ class gaoledisk extends Model
         'diskImage'
     ];
 
+    public function format()
+    {
+        return [
+            'tan' => $this->tan,
+            'seong' => $this->seong,
+            'diskNumber' => $this->diskNumber,
+            'diskName' => $this->diskName,
+            'diskImage' => $this->diskImage,
+        ];
+    }
 }

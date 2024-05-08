@@ -1,45 +1,62 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+@prepend('scripts')
+    <script>
+        $(function() {
+            $("#HeadlineAct").change(function () {
+                // alert($(this).val());
+                var tan = $(this).val();
+                var url = "{{url('/dashboard/')}}/"+tan;
+                $("#frm").attr("action", url).submit();
 
-    <title>Social Auth</title>
-    <style type="text/css">
-        .google-button {
-            background-color: red;
-            color:white;
-        }
-        .google-button:hover {
-            background-color: white;
-            border: 1px solid red;
-            color:black;
-        }
-    </style>
-</head>
-<body>
+            })
+        })
+    </script>
+@endprepend
 
-<div style="height: 100vh;" class="d-flex justify-content-center align-items-center">
-    <div>
-        <img src="{{auth()->user()->avatar}}">
-        {{auth()->user()->name}}
-        <a href="{{route('logout')}}">Logout</a>
+@section('content')
+    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <!-- Your content -->
+        <div class="px-3 pb-16">
+            <label for="HeadlineAct" class="block text-sm font-medium text-gray-900"> 탄 선택 </label>
+
+            <form name="frm" id="frm" method="get" action="">
+
+                <select
+
+                    id="HeadlineAct"
+                    class="mt-1.5 w-full rounded-lg border-b-gray-300  text-gray-700 sm:text-sm"
+                    style="background-position: right 0.5rem center;background-repeat: no-repeat;background-size: 1.5em 1.5em;padding-right: 2.5rem;"
+
+                >
+                    @foreach($tans as $key => $value)
+                        <option value="{{$key}}" {{ ($sel_tan == $key) ? 'selected' : '' }} >{{$value}}</option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
+
+        @foreach($disks as $disk)
+        <div class="group block px-8 grid place-items-center " >
+            <img
+                src="{{url('/diskImage/'.$disk['diskImage'])}}"
+                alt=""
+                class="h-[150px] mt-8"
+            />
+            <div class="mt-3 flex justify-between text-sm">
+                <div>
+                    <h3 class="text-gray-900 group-hover:underline group-hover:underline-offset-4">
+                        {{$disk['diskName']}} {{$disk['haveDisk']}}
+                    </h3>
+
+                    <p class="mt-1 text-pretty text-xs text-gray-500">
+                        {{$disk['diskNumber']}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
-</div>
 
-<!-- Optional JavaScript; choose one of the two! -->
 
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
--->
-</body>
-</html>
+@endsection

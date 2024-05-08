@@ -15,4 +15,17 @@ class gaolestore extends Model
         'xlang',
         'ylang'
     ];
+
+    public function format()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'addr' => $this->addr,
+            'units' => $this->units,
+            'xlang' => $this->xlang,
+            'ylang' => $this->ylang,
+        ];
+    }
+
 }
