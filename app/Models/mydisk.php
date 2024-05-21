@@ -13,7 +13,18 @@ class mydisk extends Model
         'user_id',
         'gaoledisk_id',
         'gaolestore_id',
-        'acquisition'
+        'acquisition_method',
+        'acquisition_date'
     ];
+
+    public function gaoledisks()
+    {
+        return $this->hasOne(gaoledisk::class, 'id', 'gaoledisk_id');
+    }
+
+    public function gaolestore()
+    {
+        return $this->hasOne(gaolestore::class, 'id', 'gaolestore_id');
+    }
 
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\GaolediskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +34,6 @@ Route::get('/logout', function () {
 Route::get('/auth/social-auth', [SocialAuthController::class,'index'])->name('social-auth');
 Route::get('/auth/google/redirect', [SocialAuthController::class,'googleRedirect'])->name('googleRedirect');
 Route::get('/auth/google/callback', [SocialAuthController::class,'googleCallback'])->name('googleCallback');
+
+Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index')->middleware('auth');
+Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store')->middleware('auth');

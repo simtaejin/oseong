@@ -23,7 +23,19 @@ $seong_info = [
     '7' => "행운",
 ];
 
+$acquisition_method_list = [
+    '1' => "몬스터볼",
+    '2' => "슈퍼볼",
+    '3' => "하이퍼볼",
+    '4' => "마스터볼",
+    '5' => "교환찬스",
+    '6' => "선배찬스",
+    '7' => "불기둥",
+    '8' => "기타",
+];
+
 return [
     'tan' => $tan_info,
     'seong' => $seong_info,
+    'acquisition_method_list' => $acquisition_method_list,
 ];

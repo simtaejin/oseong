@@ -6,6 +6,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 </head>
 <body >
 <div class = "group fixed bottom-0 right-0 p-2  flex items-end justify-end w-24 h-24 ">
@@ -63,16 +65,8 @@
         </div>
     </nav>
 
-    <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">My DISK</h1>
-        </div>
-    </header>
-    <main>
+    @yield('content')
 
-        @yield('content')
-
-    </main>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>

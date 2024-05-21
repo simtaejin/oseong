@@ -33,6 +33,7 @@ class Dashboard extends Controller
             ->get()->map(function ($item) use ($mydisks) {
 
                 return [
+                    'diskId' => $item->id,
                     'diskName' => $item->diskName,
                     'diskNumber' => $item->diskNumber,
                     'diskImage' => $item->diskImage,

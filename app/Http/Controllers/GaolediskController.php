@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\gaoledisk;
+use App\Models\gaolestore;
+use App\Models\mydisk;
 use Illuminate\Http\Request;
+use Config;
+use Illuminate\Support\Facades\Auth;
 
 class GaolediskController extends Controller
 {
@@ -12,9 +16,26 @@ class GaolediskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Int $id)
     {
-        //
+        $gaoledisk_id = $id;
+        $disk_info = gaoledisk::where('id', '=', $id)->first();
+        $store_list = gaolestore::groupBy('id')->pluck('title','id')->toArray();
+        $acquisition_method_list = Config::get('gaole.acquisition_method_list');
+
+
+        $mydisks = mydisk::where('user_id', '=', Auth::user()->id)->where('gaoledisk_id','=', $gaoledisk_id)->with('gaoledisks','gaolestore')->get()->toArray();
+
+
+
+        return view(
+            'gaoledisk.index',
+            compact('gaoledisk_id',
+                    'disk_info',
+                                'store_list',
+                                'acquisition_method_list',
+                                'mydisks'
+            ));
     }
 
     /**
@@ -36,6 +57,20 @@ class GaolediskController extends Controller
     public function store(Request $request)
     {
         //
+        $gaoledisk_id = $request->input('gaoledisk_id');
+        $gaolestore_id = $request->input('gaolestore_id');
+        $acquisition_method = $request->input('acquisition_method');
+        $acquisition_date = $request->input('acquisition_date');
+
+        mydisk::create([
+            'user_id' => Auth::user()->id,
+            'gaoledisk_id' => $gaoledisk_id,
+            'gaolestore_id' => $gaolestore_id,
+            'acquisition_method' => $acquisition_method,
+            'acquisition_date' => $acquisition_date,
+        ]);
+
+        return redirect('/gaoledisk/'.$gaoledisk_id);
     }
 
     /**
