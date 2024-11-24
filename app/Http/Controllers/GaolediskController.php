@@ -23,10 +23,11 @@ class GaolediskController extends Controller
         $store_list = gaolestore::groupBy('id')->pluck('title','id')->toArray();
         $acquisition_method_list = Config::get('gaole.acquisition_method_list');
 
-
-        $mydisks = mydisk::where('user_id', '=', Auth::user()->id)->where('gaoledisk_id','=', $gaoledisk_id)->with('gaoledisks','gaolestore')->get()->toArray();
-
-
+         if (Auth::check()) {
+            $mydisks = mydisk::where('user_id', '=', Auth::user()->id)->where('gaoledisk_id','=', $gaoledisk_id)->with('gaoledisks','gaolestore')->get()->toArray();
+         } else {
+             $mydisks = [];
+         }
 
         return view(
             'gaoledisk.index',

@@ -14,17 +14,22 @@ class Dashboard extends Controller
 {
     public function index(Request $request)
     {
-        $sel_tan = $request->tan ?? 18;
+        $sel_tan = $request->tan ?? 20;
 
         $tans = Config::get('gaole.tan');
 
 //        $mydisks = Auth::user()->mydisks()->get();
 //        $mydisks = Auth::user()->mydisks()->select('gaoledisks.diskNumber', DB::raw('count(gaoledisks.diskNumber) as cnt'))->groupBy('gaoledisks.diskNumber')->pluck('cnt','gaoledisks.diskNumber')->toArray();
 
-        $mydisks = Auth::user()->mydisks()
-            ->select('gaoledisks.diskNumber')
-            ->groupBy('gaoledisks.diskNumber')
-            ->pluck('gaoledisks.diskNumber')->toArray();
+
+        if (Auth::check()) {
+            $mydisks = Auth::user()->mydisks()
+                ->select('gaoledisks.diskNumber')
+                ->groupBy('gaoledisks.diskNumber')
+                ->pluck('gaoledisks.diskNumber')->toArray();
+        } else {
+            $mydisks = null;
+        }
 
 
         $disks = gaoledisk::where('tan', '=', $sel_tan)
@@ -37,7 +42,8 @@ class Dashboard extends Controller
                     'diskName' => $item->diskName,
                     'diskNumber' => $item->diskNumber,
                     'diskImage' => $item->diskImage,
-                    'haveDisk' => in_array($item->diskNumber, $mydisks) ? 1 : 0,
+//                    'haveDisk' => in_array($item->diskNumber, $mydisks) ? 1 : 0,
+                    'haveDisk' => $mydisks ? (in_array($item->diskNumber, $mydisks) ? 1 : 0) : 0,
                 ];
             });
 

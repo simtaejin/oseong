@@ -24,16 +24,21 @@ Route::get('/', function () {
 //    return view('dashboard');
 //})->name('dashboard')->middleware('custom_auth');
 
-Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard')->middleware('auth');
+
+Route::get('/auth/social-auth', [SocialAuthController::class,'index'])->name('social-auth');
+Route::get('/auth/google/redirect', [SocialAuthController::class,'googleRedirect'])->name('googleRedirect');
+Route::get('/auth/google/callback', [SocialAuthController::class,'googleCallback'])->name('googleCallback');
 
 Route::get('/logout', function () {
     auth()->logout();
     return redirect()->route('social-auth');
 })->name('logout')->middleware('custom_auth');
 
-Route::get('/auth/social-auth', [SocialAuthController::class,'index'])->name('social-auth');
-Route::get('/auth/google/redirect', [SocialAuthController::class,'googleRedirect'])->name('googleRedirect');
-Route::get('/auth/google/callback', [SocialAuthController::class,'googleCallback'])->name('googleCallback');
 
-Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index')->middleware('auth');
-Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store')->middleware('auth');
+//Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard')->middleware('auth');
+//Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index')->middleware('auth');
+//Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store')->middleware('auth');
+
+Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard');
+Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index');
+Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store');
