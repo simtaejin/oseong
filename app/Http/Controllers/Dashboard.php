@@ -47,6 +47,11 @@ class Dashboard extends Controller
                 ];
             });
 
-        return view('dashboard', compact('tans', 'sel_tan', 'disks'));
+        return view('dashboard_index', compact('tans', 'sel_tan', 'disks'));
+    }
+
+    public function detail(Request $request)
+    {
+        return view('dashboard_detail');
     }
 }

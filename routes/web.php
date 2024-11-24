@@ -40,5 +40,7 @@ Route::get('/logout', function () {
 //Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store')->middleware('auth');
 
 Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard');
+Route::get('/dashboard/detail/{id}', [Dashboard::class, 'detail'])->name('detail');
+
 Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index');
 Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store');
