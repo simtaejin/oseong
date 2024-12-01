@@ -42,6 +42,7 @@ class Dashboard extends Controller
                     'diskName' => $item->diskName,
                     'diskNumber' => $item->diskNumber,
                     'diskImage' => $item->diskImage,
+                    'diskType' => $item->diskType,
 //                    'haveDisk' => in_array($item->diskNumber, $mydisks) ? 1 : 0,
                     'haveDisk' => $mydisks ? (in_array($item->diskNumber, $mydisks) ? 1 : 0) : 0,
                 ];
@@ -50,8 +51,38 @@ class Dashboard extends Controller
         return view('dashboard_index', compact('tans', 'sel_tan', 'disks'));
     }
 
-    public function detail(Request $request)
+    public function detail(Int $id)
     {
-        return view('dashboard_detail');
+        $gaoledisk_id = $id;
+        $disk_info = gaoledisk::where('id', '=', $id)->first();
+        $mystores = Auth::user()->mystores()->get()->toArray();
+
+        $acquisition_method_list = Config::get('gaole.acquisition_method_list');
+
+         if (Auth::check()) {
+             $mydisks = mydisk::where('user_id', '=', Auth::user()->id)->where('gaoledisk_id','=', $gaoledisk_id)->with('gaoledisks','gaolestore')->get()->toArray();
+         } else {
+             $mydisks = [];
+         }
+
+        return view('dashboard_detail', compact('gaoledisk_id', 'disk_info', 'acquisition_method_list', 'mystores'));
+    }
+
+    public function store(Request $request)
+    {
+        $gaoledisk_id = $request->input('gaoledisk_id');
+        $gaolestore_id = $request->input('gaolestore_id');
+        $acquisition_method = $request->input('acquisition_method');
+        $acquisition_date = $request->input('acquisition_date');
+
+        mydisk::create([
+            'user_id' => Auth::user()->id,
+            'gaoledisk_id' => $gaoledisk_id,
+            'gaolestore_id' => $gaolestore_id,
+            'acquisition_method' => $acquisition_method,
+            'acquisition_date' => $acquisition_date,
+        ]);
+
+        return redirect(route('dashboard'));
     }
 }

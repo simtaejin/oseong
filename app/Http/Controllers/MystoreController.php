@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\gaoledisk;
 use App\Models\gaolestore;
-use App\Models\mydisk;
+use App\Models\mystore;
 use Illuminate\Http\Request;
-use Config;
 use Illuminate\Support\Facades\Auth;
 
-class GaolediskController extends Controller
+class MystoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +16,10 @@ class GaolediskController extends Controller
      */
     public function index()
     {
-        //
+        $store_list = gaolestore::groupBy('id')->pluck('title','id')->toArray();
+        $mystores = Auth::user()->mystores()->get()->toArray();
+
+        return view('mypage.mystore', compact('store_list', 'mystores'));
     }
 
     /**
@@ -40,15 +41,23 @@ class GaolediskController extends Controller
     public function store(Request $request)
     {
         //
+        $gaolestore_id = $request->input('gaolestore_id');
+
+        mystore::create([
+            'user_id' => Auth::user()->id,
+            'gaolestore_id' => $gaolestore_id,
+        ]);
+
+        return redirect(route('mypage-gaolestore'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\gaoledisk  $gaoledisk
+     * @param  \App\Models\mystore  $mystore
      * @return \Illuminate\Http\Response
      */
-    public function show(gaoledisk $gaoledisk)
+    public function show(mystore $mystore)
     {
         //
     }
@@ -56,10 +65,10 @@ class GaolediskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\gaoledisk  $gaoledisk
+     * @param  \App\Models\mystore  $mystore
      * @return \Illuminate\Http\Response
      */
-    public function edit(gaoledisk $gaoledisk)
+    public function edit(mystore $mystore)
     {
         //
     }
@@ -68,10 +77,10 @@ class GaolediskController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\gaoledisk  $gaoledisk
+     * @param  \App\Models\mystore  $mystore
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, gaoledisk $gaoledisk)
+    public function update(Request $request, mystore $mystore)
     {
         //
     }
@@ -79,11 +88,12 @@ class GaolediskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\gaoledisk  $gaoledisk
+     * @param  \App\Models\mystore  $mystore
      * @return \Illuminate\Http\Response
      */
-    public function destroy(gaoledisk $gaoledisk)
+    public function destroy($id)
     {
-        //
+        mystore::where('user_id', '=', Auth::user()->id)->where('gaolestore_id', '=', $id)->delete();
+        return redirect(route('mypage-gaolestore'));
     }
 }

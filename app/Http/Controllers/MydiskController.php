@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\gaoledisk;
 use App\Models\mydisk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Config;
 
 class MydiskController extends Controller
 {
@@ -12,9 +15,33 @@ class MydiskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $sel_tan = $request->tan ?? 20;
+
+        $tans = Config::get('gaole.tan');
+
+        $mydisks = Auth::user()->mydisks()
+                ->select('gaoledisks.diskNumber')
+                ->groupBy('gaoledisks.diskNumber')
+                ->pluck('gaoledisks.diskNumber')->toArray();
+
+        $disks = gaoledisk::where('tan', $sel_tan)
+            ->where('seong', 5)
+            ->orderBy('created_at', 'desc')
+            ->whereIn('diskNumber', $mydisks)
+            ->get(['id', 'diskName', 'diskNumber', 'diskImage', 'diskType'])
+            ->map(function ($item) {
+                return [
+                    'diskId' => $item->id,
+                    'diskName' => $item->diskName,
+                    'diskNumber' => $item->diskNumber,
+                    'diskImage' => $item->diskImage,
+                    'diskType' => $item->diskType,
+                ];
+            });
+
+        return view('mypage.mydisk', compact('sel_tan', 'tans', 'disks', 'tans'));
     }
 
     /**
@@ -44,9 +71,29 @@ class MydiskController extends Controller
      * @param  \App\Models\mydisk  $mydisk
      * @return \Illuminate\Http\Response
      */
-    public function show(mydisk $mydisk)
+    public function show(Int $id)
     {
-        //
+        $gaoledisk_id = $id;
+        $disk_info = gaoledisk::where('id', '=', $id)->first();
+
+        $acquisition_method_list = Config::get('gaole.acquisition_method_list');
+
+        $mydisks = mydisk::where('user_id', '=', Auth::user()->id)
+            ->where('gaoledisk_id','=', $gaoledisk_id)
+            ->with('gaoledisks','gaolestore')
+            ->get()->map(function ($item) use ($acquisition_method_list)  {
+
+                return [
+                    'id' => $item->id,
+                    'gaoledisk_id' => $item->gaoledisk_id,
+                    'gaolestore_id' => $item->gaolestore_id,
+                    'gaolestore_title' => $item->gaolestore->title,
+                    'acquisition_method' => $acquisition_method_list[$item->acquisition_method],
+                    'acquisition_date' => substr($item->acquisition_date, 0, 10),
+                ];
+            });
+
+        return view('mypage.mydisk_show', compact('gaoledisk_id', 'disk_info', 'mydisks'));
     }
 
     /**
@@ -78,8 +125,9 @@ class MydiskController extends Controller
      * @param  \App\Models\mydisk  $mydisk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(mydisk $mydisk)
+    public function destroy($id)
     {
-        //
+        mydisk::where('user_id', '=', Auth::user()->id)->where('id', '=', $id)->delete();
+        return redirect()->route('mypage-gaoledisk');
     }
 }

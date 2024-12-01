@@ -6,7 +6,7 @@
             $("#tans").change(function () {
                 // alert($(this).val());
                 var tan = $(this).val();
-                var url = "{{url('/dashboard/')}}/"+tan;
+                var url = "{{url('/mypage/gaoledisk/')}}/"+tan;
                 $("#frm").attr("action", url).submit();
 
             })
@@ -15,14 +15,20 @@
 @endprepend
 
 @section('content')
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900" style="display: flex;align-items: center">
+                <a href="{{url('/dashboard/')}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                      <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;MY DISK
+            </h1>
+        </div>
+    </header>
 
-  <header class="bg-white shadow">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-    </div>
-  </header>
-
-  <main>
+    <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <!-- Your content -->
         <div class="relative flex w-full flex-col gap-1 text-neutral-600 dark:text-neutral-300">
@@ -43,7 +49,7 @@
 
         <div class="relative w-full  flex-row space-y-7">
             @foreach($disks as $disk)
-                <a href="{{url('/dashboard/detail/'.$disk['diskId'])}}" >
+                <a href="{{route('mypage-gaoledisk-show', $disk['diskId'])}}" >
                     <article class="border-0 group flex rounded-md  flex-col overflow-hidden border border-neutral-300 bg-neutral-50 text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
                         <div class="h-44 overflow-hidden">
                             <img src="{{url('/diskImage/'.$disk['diskImage'])}}" style="justify-self: center" class="h-[175px] object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
@@ -57,8 +63,6 @@
             @endforeach
 
         </div>
-
     </div>
-  </main>
-
+    </main>
 @endsection

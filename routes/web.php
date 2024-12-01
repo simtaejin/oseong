@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\GaolediskController;
+use App\Http\Controllers\MydiskController;
+use App\Http\Controllers\MystoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,12 +37,14 @@ Route::get('/logout', function () {
 })->name('logout')->middleware('custom_auth');
 
 
-//Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard')->middleware('auth');
-//Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index')->middleware('auth');
-//Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store')->middleware('auth');
-
 Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard');
-Route::get('/dashboard/detail/{id}', [Dashboard::class, 'detail'])->name('detail');
+Route::get('/dashboard/detail/{id}', [Dashboard::class, 'detail'])->name('detail')->middleware(['myfavorites','auth']);
+Route::post('/dashboard/store/', [Dashboard::class, 'store'])->name('store')->middleware(['myfavorites','auth']);
 
-Route::get('/gaoledisk/{id}', [gaolediskController::class, 'index'])->name('gaoledisk-index');
-Route::post('/gaoledisk/', [gaolediskController::class, 'store'])->name('gaoledisk-store');
+Route::get('/mypage/gaolestore', [MystoreController::class, 'index'])->name('mypage-gaolestore')->middleware('auth');
+Route::post('/mypage/gaolestore', [MystoreController::class, 'store'])->name('mypage-gaolestore-store')->middleware('auth');
+Route::delete('/mypage/gaolestore/{id?}', [MystoreController::class, 'destroy'])->name('mypage-gaolestore-delete')->middleware('auth');
+
+Route::get('/mypage/gaoledisk/{tan?}',[MydiskController::class, 'index'])->name('mypage-gaoledisk')->middleware('auth');
+Route::get('/mypage/gaoledisk/show/{id}',[MydiskController::class, 'show'])->name('mypage-gaoledisk-show')->middleware('auth');
+Route::delete('/mypage/gaoledisk/destroy/{id}',[MydiskController::class, 'destroy'])->name('mypage-gaoledisk-delete')->middleware('auth');

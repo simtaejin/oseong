@@ -48,4 +48,11 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(gaoledisk::class,mydisk::class,'user_id','id','id','gaoledisk_id');
     }
+
+    public function mystores()
+    {
+        return $this->hasManyThrough(gaolestore::class,mystore::class,'user_id','id','id','gaolestore_id');
+    }
+
+
 }
