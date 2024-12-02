@@ -18,8 +18,13 @@
 
   <header class="bg-white shadow">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <script>
+            new PartnersCoupang.G({"id":823680,"template":"carousel","trackingCode":"AF6935902","width":"100%","height":"140","tsource":""});
+        </script>
+      </h1>
     </div>
+  <span style="font-size: xx-small">"이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."</span>
   </header>
 
   <main>
