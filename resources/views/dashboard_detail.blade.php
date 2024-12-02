@@ -28,7 +28,7 @@
       <!-- Your content -->
         <article class="group flex rounded-md  flex-col  border border-neutral-300 bg-neutral-50 text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
             <div class=" ">
-                <img src="{{url('/diskImage/'.$disk_info['diskImage'])}}" style="justify-self: center" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
+                <img src="{{url('/storage/diskImage/'.$disk_info['diskImage'])}}" style="justify-self: center" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
             </div>
             <div class="flex flex-col gap-4 p-6">
                 <span class="place-self-center text-sm font-medium">{{$disk_info['diskNumber']}}</span>
