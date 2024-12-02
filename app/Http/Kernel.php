@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CustomAuth;
+use App\Http\Middleware\MyFavorites;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
