@@ -38,8 +38,8 @@ Route::get('/logout', function () {
 
 
 Route::get('/dashboard/{tan?}', [Dashboard::class, 'index'])->name('dashboard');
-Route::get('/dashboard/detail/{id}', [Dashboard::class, 'detail'])->name('detail')->middleware(['myfavorites','auth']);
-Route::post('/dashboard/store/', [Dashboard::class, 'store'])->name('store')->middleware(['myfavorites','auth']);
+Route::get('/dashboard/detail/{id}', [Dashboard::class, 'detail'])->name('detail')->middleware('auth');
+Route::post('/dashboard/store/', [Dashboard::class, 'store'])->name('store')->middleware('auth');
 
 Route::get('/mypage/gaolestore', [MystoreController::class, 'index'])->name('mypage-gaolestore')->middleware('auth');
 Route::post('/mypage/gaolestore', [MystoreController::class, 'store'])->name('mypage-gaolestore-store')->middleware('auth');

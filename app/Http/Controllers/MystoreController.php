@@ -16,7 +16,7 @@ class MystoreController extends Controller
      */
     public function index()
     {
-        $store_list = gaolestore::groupBy('id')->pluck('title','id')->toArray();
+        $store_list = gaolestore::pluck('title','id')->toArray();
         $mystores = Auth::user()->mystores()->get()->toArray();
 
         return view('mypage.mystore', compact('store_list', 'mystores'));
