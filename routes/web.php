@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\GaolediskController;
 use App\Http\Controllers\MydiskController;
 use App\Http\Controllers\MystoreController;
+use App\Http\Controllers\ArrayTableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,3 +49,6 @@ Route::delete('/mypage/gaolestore/{id?}', [MystoreController::class, 'destroy'])
 Route::get('/mypage/gaoledisk/{tan?}',[MydiskController::class, 'index'])->name('mypage-gaoledisk')->middleware('auth');
 Route::get('/mypage/gaoledisk/show/{id}',[MydiskController::class, 'show'])->name('mypage-gaoledisk-show')->middleware('auth');
 Route::delete('/mypage/gaoledisk/destroy/{id}',[MydiskController::class, 'destroy'])->name('mypage-gaoledisk-delete')->middleware('auth');
+
+Route::get('/arraytable/datain_ruch5', [ArrayTableController::class, 'datain_ruch5'])->name('datain_ruch5');
+Route::get('/arraytable/dataout_ruch5', [ArrayTableController::class, 'dataout_ruch5'])->name('datain_ruch5');

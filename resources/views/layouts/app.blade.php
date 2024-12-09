@@ -8,6 +8,7 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <script src="https://ads-partners.coupang.com/g.js"></script>
+    @stack('style')
 </head>
 <body>
 
@@ -21,6 +22,7 @@
 	<ul class="hidden items-center gap-4 md:flex">
 		<li><a href="{{url('/mypage/gaoledisk/')}}" class="font-medium text-black underline-offset-2 hover:text-black focus:outline-none focus:underline dark:text-white dark:hover:text-white" aria-current="page">내 디스크</a></li>
 		<li><a href="{{url('/mypage/gaolestore')}}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white">즐겨찾는 매장</a></li>
+		<li><a href="{{url('/arraytable/dataout_ruch5')}}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white">러쉬 5 배열표</a></li>
 {{--		<li><a href="#" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white">Blog</a></li>--}}
 		<li><a href="{{url('/logout')}}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white">LogOut</a></li>
 	</ul>
@@ -37,7 +39,7 @@
 	<ul x-cloak x-show="mobileMenuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu" class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-neutral-300 rounded-b-md border-b border-neutral-300 bg-neutral-50 px-6 pb-6 pt-20 dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 md:hidden">
 		<li class="py-4"><a href="{{url('/mypage/gaoledisk/')}}" class="w-full text-lg font-medium text-black focus:underline dark:text-white" aria-current="page">내 디시크</a></li>
 		<li class="py-4"><a href="{{url('/mypage/gaolestore')}}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">즐겨찾는 매장</a></li>
-{{--		<li class="py-4"><a href="#" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">Blog</a></li>--}}
+		<li class="py-4"><a href="{{url('/arraytable/dataout_ruch5')}}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">러쉬 5 배열표</a></li>
 		<li class="py-4"><a href="{{url('/logout')}}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">LogOut</a></li>
 	</ul>
 </nav>
