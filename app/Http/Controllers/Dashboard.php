@@ -55,7 +55,7 @@ class Dashboard extends Controller
     {
         $gaoledisk_id = $id;
         $disk_info = gaoledisk::where('id', '=', $id)->first();
-        $mystores = Auth::user()->mystores()->get()->toArray();
+        $mystores = Auth::user()->mystores()->orderBy('title', 'asc')->get()->toArray();
 
         $acquisition_method_list = Config::get('gaole.acquisition_method_list');
 
