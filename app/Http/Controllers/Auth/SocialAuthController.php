@@ -33,7 +33,7 @@ class SocialAuthController extends Controller
 
     public function naverCallback()
     {
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('naver')->user();
         dd($user);
     }
 
