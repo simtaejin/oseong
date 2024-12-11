@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.13",
         "laravel/tinker": "^2.7",
+        "socialiteproviders/naver": "^4.1",
         "symfony/css-selector": "^6.0"
     },
     "require-dev": {

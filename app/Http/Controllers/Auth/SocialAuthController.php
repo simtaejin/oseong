@@ -26,6 +26,17 @@ class SocialAuthController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function naverRedirect()
+    {
+        return Socialite::driver('naver')->redirect();
+    }
+
+    public function naverCallback()
+    {
+        $user = Socialite::driver('google')->user();
+        dd($user);
+    }
+
     private function createOrUpdateUser($data, $provider)
     {
         $user = User::where('email', $data->email)->first();

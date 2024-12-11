@@ -56,6 +56,9 @@
 <body>
 
 <div style="height: 100vh;" class="d-flex justify-content-center align-items-center">
+    <a href="{{route('naverRedirect')}}">naver</a>
+
+
     <div class="google-btn" onclick="window.location.href='{{route('googleRedirect')}}'">
         <div class="google-icon-wrapper">
             <img class="google-icon" src="https://developers.google.com/static/identity/images/g-logo.png?hl=ko"/>

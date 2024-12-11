@@ -32,6 +32,10 @@ Route::get('/auth/social-auth', [SocialAuthController::class,'index'])->name('so
 Route::get('/auth/google/redirect', [SocialAuthController::class,'googleRedirect'])->name('googleRedirect');
 Route::get('/auth/google/callback', [SocialAuthController::class,'googleCallback'])->name('googleCallback');
 
+Route::get('/auth/naver/redirect', [SocialAuthController::class,'naverRedirect'])->name('naverRedirect');
+Route::get('/auth/naver/callback', [SocialAuthController::class,'naverCallback'])->name('naverCallback');
+
+
 Route::get('/logout', function () {
     auth()->logout();
     return redirect()->route('social-auth');
