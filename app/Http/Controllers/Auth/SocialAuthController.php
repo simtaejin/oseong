@@ -34,27 +34,60 @@ class SocialAuthController extends Controller
     public function naverCallback()
     {
         $user = Socialite::driver('naver')->user();
-        dd($user);
+        $this->createOrUpdateUser($user, 'naver');
+        return redirect()->route('dashboard');
     }
 
     private function createOrUpdateUser($data, $provider)
     {
         $user = User::where('email', $data->email)->first();
-        if ($user) {
-            $user->update([
-               'provider' => $provider,
-               'provider_id' => $data->id,
-               'avatar' => $data->avatar,
-            ]);
-        } else {
-            $user=User::create([
-                'name' => $data->name,
-                'email' => $data->email,
-                'provider' => $provider,
-                'provider_id' => $data->id,
-                'avatar' => $data->avatar,4
-            ]);
+
+        if ($provider == "google") {
+            if ($user) {
+                $user->update([
+                   'provider' => $provider,
+                   'provider_id' => $data->id,
+                   'avatar' => $data->avatar,
+                ]);
+            } else {
+                $user=User::create([
+                    'name' => $data->name,
+                    'email' => $data->email,
+                    'provider' => $provider,
+                    'provider_id' => $data->id,
+                    'avatar' => $data->avatar,
+                ]);
+            }
+        } else if ($provider == "naver") {
+            if ($user) {
+                $user->update([
+                   'name' => $data->name,
+                    'email' => $data->email,
+                    'provider' => $provider,
+                    'provider_id' => $data->id,
+                    'avatar' => $data->avatar,
+                    'nickname' => $data->user['response']['nickname'],
+                    'age' => $data->user['response']['age'],
+                    'gender' => $data->user['response']['gender'],
+                    'mobile' => $data->user['response']['mobile'],
+                    'profile_image' => $data->user['response']['profile_image'],
+                ]);
+            } else {
+                $user=User::create([
+                    'name' => $data->name,
+                    'email' => $data->email,
+                    'provider' => $provider,
+                    'provider_id' => $data->id,
+                    'avatar' => $data->avatar,
+                    'nickname' => $data->user['response']['nickname'],
+                    'age' => $data->user['response']['age'],
+                    'gender' => $data->user['response']['gender'],
+                    'mobile' => $data->user['response']['mobile'],
+                    'profile_image' => $data->user['response']['profile_image'],
+                ]);
+            }
         }
+
 
         Auth::login($user);
     }
