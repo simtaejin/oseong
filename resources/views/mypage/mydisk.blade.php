@@ -27,7 +27,13 @@
             </h1>
         </div>
     </header>
-
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <script>
+            new PartnersCoupang.G({"id":823680,"template":"carousel","trackingCode":"AF6935902","width":"100%","height":"140","tsource":""});
+        </script>
+      </h1>
+    </div>
     <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <!-- Your content -->
