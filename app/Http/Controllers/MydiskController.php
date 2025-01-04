@@ -17,7 +17,7 @@ class MydiskController extends Controller
      */
     public function index(Request $request)
     {
-        $sel_tan = $request->tan ?? 20;
+        $sel_tan = $request->tan ?? 21;
 
         $tans = Config::get('gaole.tan');
 
