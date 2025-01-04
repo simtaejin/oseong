@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\GaolediskController;
@@ -35,6 +36,9 @@ Route::get('/auth/google/callback', [SocialAuthController::class,'googleCallback
 Route::get('/auth/naver/redirect', [SocialAuthController::class,'naverRedirect'])->name('naverRedirect');
 Route::get('/auth/naver/callback', [SocialAuthController::class,'naverCallback'])->name('naverCallback');
 
+Route::get('/create', [AuthController::class,'create'])->name('create');
+Route::post('/register', [AuthController::class,'store'])->name('register');
+Route::post('/login', [AuthController::class,'login'])->name('login');
 
 Route::get('/logout', function () {
     auth()->logout();
