@@ -59,4 +59,7 @@ Route::get('/mypage/gaoledisk/show/{id}',[MydiskController::class, 'show'])->nam
 Route::delete('/mypage/gaoledisk/destroy/{id}',[MydiskController::class, 'destroy'])->name('mypage-gaoledisk-delete')->middleware('auth');
 
 Route::get('/arraytable/datain_ruch5', [ArrayTableController::class, 'datain_ruch5'])->name('datain_ruch5');
-Route::get('/arraytable/dataout_ruch5', [ArrayTableController::class, 'dataout_ruch5'])->name('datain_ruch5');
+Route::get('/arraytable/dataout_ruch5', [ArrayTableController::class, 'dataout_ruch5'])->name('dataout_ruch5');
+
+Route::get('/arraytable/datain_ruch6', [ArrayTableController::class, 'datain_ruch6'])->name('datain_ruch6');
+Route::get('/arraytable/dataout_ruch6', [ArrayTableController::class, 'dataout_ruch6'])->name('dataout_ruch6');
